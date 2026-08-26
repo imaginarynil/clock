@@ -33,13 +33,13 @@ function Stopwatch() {
     }
     return res;
   }
-  function startStopwatch() {
+  function handleStart() {
     setIsRunning(true);
   }
-  function stopStopwatch() {
+  function handleStop() {
     setIsRunning(false);
   }
-  function resetStopwatch() {
+  function handleReset() {
     setTime(0);
   }
   return (
@@ -50,9 +50,12 @@ function Stopwatch() {
         <span>{formatTime(second)}.</span>
         <span>{formatTime(decimal)}</span>
       </div>
-      <button onClick={startStopwatch}>Start</button>
-      <button onClick={stopStopwatch}>Stop</button>
-      <button onClick={resetStopwatch}>Reset</button>
+      {isRunning ? (
+        <button onClick={handleStop}>Stop</button>
+      ) : (
+        <button onClick={handleStart}>{time > 0 ? "Resume" : "Start"}</button>
+      )}
+      {!isRunning && time > 0 && <button onClick={handleReset}>Reset</button>}
     </div>
   );
 }
