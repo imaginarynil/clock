@@ -17,7 +17,7 @@ function Stopwatch() {
   useEffect(() => {
     if (isRunning) {
       intervalId.current = setInterval(() => {
-        setTime((time) => time + 1);
+        setTime((prevTime) => prevTime + 1);
       }, DELAY_IN_MS);
     } else {
       clearInterval(intervalId.current);

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Stopwatch from "./Stopwatch";
+import Timer from "./Timer";
 
 export default function Home() {
   const [date, setDate] = useState(new Date());
@@ -19,7 +20,8 @@ export default function Home() {
       {/* <p>
         {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
       </p> */}
-      <Stopwatch />
+      {/* <Stopwatch /> */}
+      <Timer />
     </div>
   );
 }
