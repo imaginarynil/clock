@@ -1,10 +1,12 @@
 import { useState } from "react";
+import Alarm from "@/app/Alarm/Alarm";
 
 interface CreateAlarmProps {
   onClose: () => void;
+  onCreateAlarm: (alarm: Alarm) => void;
 }
 
-function CreateAlarm({ onClose }: CreateAlarmProps) {
+function CreateAlarm({ onClose, onCreateAlarm }: CreateAlarmProps) {
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   return (
@@ -40,7 +42,18 @@ function CreateAlarm({ onClose }: CreateAlarmProps) {
         ></input>
       </label>
       <button onClick={onClose}>Cancel</button>
-      <button>Save</button>
+      <button
+        onClick={() =>
+          onCreateAlarm({
+            id: crypto.randomUUID(),
+            hour: hour,
+            minute: minute,
+            active: true,
+          })
+        }
+      >
+        Save
+      </button>
     </>
   );
 }
