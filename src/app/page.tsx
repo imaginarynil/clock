@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Stopwatch from "./Stopwatch";
 import Timer from "./Timer";
-import Alarm from "./Alarm/Alarm";
+import AlarmApp from "@/app/Alarm/AlarmApp";
 
 export default function Home() {
   const [date, setDate] = useState(new Date());
@@ -23,7 +23,7 @@ export default function Home() {
       </p> */}
       {/* <Stopwatch /> */}
       {/* <Timer /> */}
-      <Alarm />
+      <AlarmApp />
     </div>
   );
 }

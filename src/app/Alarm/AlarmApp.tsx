@@ -1,23 +1,30 @@
 import { useState } from "react";
-import CreateAlarm from "./CreateAlarm";
-
-interface Alarm {
-  id: string;
-  hour: number;
-  minute: number;
-  active: boolean;
-}
+import CreateAlarm from "@/app/Alarm/CreateAlarm";
+import { Alarm } from "@/app/Alarm/types";
+import AlarmList from "./AlarmList";
 
 const initialAlarms = [
   { id: crypto.randomUUID(), hour: 12, minute: 0, active: true },
 ];
 
-function Alarm() {
+function AlarmApp() {
   const [isCreating, setIsCreating] = useState(false);
   const [alarms, setAlarms] = useState<Alarm[]>(initialAlarms);
 
   function handleCreateAlarm(alarm: Alarm) {
     setAlarms([...alarms, alarm]);
+  }
+
+  function handleUpdateAlarm(updatedAlarm: Alarm) {
+    setAlarms(
+      alarms.map((alarm) => {
+        if (updatedAlarm.id === alarm.id) {
+          return updatedAlarm;
+        } else {
+          return alarm;
+        }
+      }),
+    );
   }
 
   return (
@@ -26,20 +33,12 @@ function Alarm() {
       {isCreating && (
         <CreateAlarm
           onClose={() => setIsCreating(false)}
-          onCreateAlarm={handleCreateAlarm}
+          onCreate={handleCreateAlarm}
         />
       )}
-      <ul>
-        {alarms.map((alarm) => (
-          <li key={alarm.id}>
-            {alarm.hour} {alarm.minute}
-            <button>Edit</button>
-            <button>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <AlarmList alarms={alarms} onUpdateAlarm={handleUpdateAlarm} />
     </>
   );
 }
 
-export default Alarm;
+export default AlarmApp;
